@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drive Control</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <title th:text="${page_name}"></title>
+        <base th:href="@{/templates/home.html}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+
+    <div th:class="${#authorization.expression('!isAuthenticated()')} ? ' ' : 'nav-opts'">
+        <ul class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1">
+
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                <a class="nav-link" href="/furniture/admin/add">Add Furniture</a>
+            </li>
+            <li class="nav-item" style="text-align: center;" sec:authorize="!isAuthenticated()">
+                <a class="nav-link ms-1 navbar-hover" th:href="@{/user/login}">Login</a>
+            </li>
+        </ul>
+    </div>
+
+    <body>
+        <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
+            <nav id="header-nav" class="navbar navbar-expand-lg px-3 text-center">
+                <div class="container-fluid">
+                    <a class="navbar-brand" sec:authorize="isAuthenticated()" href="/">Furniture Store</a>
+                    <div th:class="${#authorization.expression('!isAuthenticated()')} ? ' ' : ' nav-opts'">
+                        <ul class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1">
+                            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                                <a class="nav-link" href="/furniture/admin/add">Add Furniture</a>
+                            </li>
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <a class="nav-link" href="/cart">Cart</a>
+                            </li>
+                            <li class="nav-item" style="text-align: center;" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link ms-1 navbar-hover" th:href="@{/user/login}">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div th:class="${#authorization.expression('!isAuthenticated()')} ? 'hide-exclusion' : 'show-exclusion'">
+                        <div class="user-btn" sec:authorize="isAuthenticated()">
+                            <a class="nav-link ms-1 navbar-hover" th:href="@{/profile}">Edit User</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>

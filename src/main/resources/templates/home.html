@@ -1,0 +1,20 @@
+<div th:replace="~{fragments/header}" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+<main class="main-content">
+
+    <div class="row">
+        <div th:each="item : ${furnitureItems}" class="col-md-4 mb-3">
+            <div class="card">
+                <img th:if="${item.base64Image != null}"
+                     th:src="'data:image/jpeg;base64,' + ${item.base64Image}"
+                     class="card-img-top" alt="Furniture image" style="height:200px; object-fit:cover;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.furniture.name}">Name</h5>
+                    <p class="card-text" th:text="${#numbers.formatDecimal(item.furniture.price, 0, 'COMMA', 2, 'POINT')} + ' Euro'">Price</p>
+                    <a th:href="@{/furniture/{id}(id=${item.furniture.id})}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<div th:replace="~{fragments/footer}"></div>

@@ -1,0 +1,48 @@
+<div th:replace="~{fragments/header}" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+<main class="main-content">
+
+    <div class="container mt-4">
+        <h2>Edit Furniture</h2>
+        <form method="post" th:action="@{/furniture/admin/{id}/edit(id=${furnitureId})}" th:object="${furnitureDTO}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" th:field="*{name}">
+                <div th:errors="*{name}" class="text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" th:field="*{description}"></textarea>
+                <div th:errors="*{description}" class="text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="number" step="0.01" class="form-control" th:field="*{price}">
+                <div th:errors="*{price}" class="text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Current Image</label>
+                <div th:if="${existingImage}">
+                    <img th:src="'data:image/jpeg;base64,' + ${existingImage}" style="max-height:100px;">
+                </div>
+                <div th:unless="${existingImage}">No image</div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" th:field="*{delImg}">
+                <label class="form-check-label">Delete image</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Upload New Image (leave empty to keep current)</label>
+                <input type="file" class="form-control" th:field="*{imageFile}" accept="image/*">
+                <div th:errors="*{imageFile}" class="text-danger"></div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" th:field="*{available}">
+                <label class="form-check-label">Product available</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Furniture</button>
+            <a th:href="@{'/furniture/' + ${furnitureId}}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+</main>
+<div th:replace="~{fragments/footer}"></div>
