@@ -2,6 +2,7 @@
 <main class="main-content">
 
     <div class="row">
+        <h2 class="display-5 fw-bold text-center mb-4 shadow-sm pb-2">Furniture Store</h2>
         <div th:each="item : ${furnitureItems}" class="col-md-4 mb-3">
             <div class="card">
                 <img th:if="${item.base64Image != null}"

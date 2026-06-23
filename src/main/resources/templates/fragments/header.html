@@ -28,9 +28,14 @@
         <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
             <nav id="header-nav" class="navbar navbar-expand-lg px-3 text-center">
                 <div class="container-fluid">
-                    <a class="navbar-brand" sec:authorize="isAuthenticated()" href="/">Furniture Store</a>
+                    <a class="navbar-brand" sec:authorize="isAuthenticated()" href="/">
+                        <img th:src="@{/images/logo_market.png}" alt="Furniture Store" width="50" height="50">
+                    </a>
                     <div th:class="${#authorization.expression('!isAuthenticated()')} ? ' ' : ' nav-opts'">
                         <ul class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1">
+                            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
                             <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                                 <a class="nav-link" href="/furniture/admin/add">Add Furniture</a>
                             </li>
@@ -44,7 +49,9 @@
                     </div>
                     <div th:class="${#authorization.expression('!isAuthenticated()')} ? 'hide-exclusion' : 'show-exclusion'">
                         <div class="user-btn" sec:authorize="isAuthenticated()">
-                            <a class="nav-link ms-1 navbar-hover" th:href="@{/profile}">Edit User</a>
+                            <a class="nav-link ms-1 navbar-hover" th:href="@{/profile}">
+                                <img th:src="@{/images/user-avatar.png}" alt="Edit User" width="24" height="24">
+                            </a>
                         </div>
                     </div>
                 </div>
